@@ -10,7 +10,7 @@ a, a:hover {
 }
 
 @mixin font-custom {
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -22,7 +22,7 @@ a, a:hover {
 .font-custom, .dropdown-item { @include font-custom; }
 .border-custom { @include border-custom; }
 
-.navbar, .btn-custom {
+.navbar, .btn-custom, a.badge-custom:hover {
     background-color: $navbar-bg;
     color: $navbar-txt;
 }
@@ -42,7 +42,7 @@ body, .input-custom, .modal-content, .card, .badge-custom, .btn-custom:hover {
     @include font-custom;
     @include border-custom;
     font-size: 0.9em;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.5s, color 0.5s;
 }
@@ -50,9 +50,10 @@ body, .input-custom, .modal-content, .card, .badge-custom, .btn-custom:hover {
 .badge-custom {
     @include font-custom;
     @include border-custom;
-    font-size: 0.8em;
-    padding: 3px 15px;
+    font-size: 0.7em;
+    padding: 5px 20px;
     border-radius: 10px;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .input-custom {
@@ -60,3 +61,8 @@ body, .input-custom, .modal-content, .card, .badge-custom, .btn-custom:hover {
     padding: 5px 10px;
     border-radius: 5px;
 }
+
+.Pending { background-color: desaturate(orange, 50%); }
+.Updated { background-color: desaturate(green, 50%); }
+.Stale { background-color: gray; }
+.Rejected { background-color: desaturate(red, 50%); }

@@ -19,7 +19,8 @@ def load_user(id_: int):
 
 @current_app.route("/")
 def index():
-    return render_template("index.html")
+    order_by = request.args.get("order_by", default="date_applied desc")
+    return render_template("index.html", order_by=order_by)
 
 
 @current_app.route("/login", methods=["POST"])

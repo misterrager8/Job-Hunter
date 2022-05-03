@@ -1,7 +1,7 @@
 import datetime
 
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, Text, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Text, DateTime, ForeignKey, text
 from sqlalchemy.orm import relationship
 
 from JobTracker import db
@@ -19,6 +19,12 @@ class User(UserMixin, db.Model):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
 
+    def get_jobapps(self, filter_: str = "", order_by: str = "date_applied desc"):
+        return self.jobapps.filter(text(filter_)).order_by(text(order_by))
+
+    def get_pending(self):
+        return self.jobapps.filter(Jobapp.status == "Pending")
+
 
 class Jobapp(db.Model):
     __tablename__ = "jobapps"
@@ -32,10 +38,9 @@ class Jobapp(db.Model):
 
     def __init__(self, url: str,
                  employer: str,
-                 date_applied: datetime.datetime = datetime.datetime.now(),
-                 status: str = "Pending Response", **kwargs):
+                 status: str = "Pending", **kwargs):
         self.url = url
         self.employer = employer
-        self.date_applied = date_applied
+        self.date_applied = datetime.datetime.now()
         self.status = status
         super(Jobapp, self).__init__(**kwargs)

@@ -34,6 +34,28 @@
 </div>
 {% endmacro %}
 
+{% macro jobapp_card(jobapp) %}
+<div class="card col-xl-4">
+  <div class="card-body mb-4">
+    <p>
+      <a target="_blank" href="{{ jobapp.url }}" class="h3">{{ jobapp.employer }}</a>
+      <span class="float-end badge-custom {{ jobapp.status }}">{{ jobapp.status }}</span>
+    </p>
+    <div>
+      <small class="fst-italic opacity-25" title="{{ jobapp.date_applied }}">{{ jobapp.date_applied.strftime('%B %-d') }}</small>
+      <div class="float-end">
+        <a class="" onclick="toggleDiv('edit' + {{ jobapp.id }})"><i class="bi bi-pen me-2"></i> </a>
+        <a style="display:none" id="deleteJobapp{{ jobapp.id }}" class="font-custom text-danger" onclick="jobappDelete({{ jobapp.id }})">delete?</a>
+        <a class="text-danger" onclick="toggleDiv('deleteJobapp' + {{ jobapp.id }})"><i class="bi bi-trash2"></i> </a>
+      </div>
+      <div style="display:none" id="edit{{ jobapp.id }}" class="mt-3">
+        {{ macros.jobapp_edit_form(jobapp) }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
 <!--FORMS-->
 {% macro login_form() %}
 <form method="POST" action="{{ url_for('login') }}">
@@ -68,10 +90,24 @@
 {% endmacro %}
 
 {% macro jobapp_create_form() %}
-<form onsubmit="event.preventDefault(); jobappCreate(); this.reset();">
-  <input autocomplete="off" id="url" class="input-custom">
-  <input autocomplete="off" id="employer" class="input-custom">
+<form onsubmit="event.preventDefault(); jobappCreate(); this.reset();" class="input-group">
+  <input placeholder="URL" autocomplete="off" id="url" class="input-custom" required>
+  <input placeholder="Employer Name" autocomplete="off" id="employer" class="input-custom" required>
   <button type="submit" class="btn-custom"><i class="bi bi-plus-lg"></i></button>
+</form>
+{% endmacro %}
+
+{% macro jobapp_edit_form(jobapp) %}
+<form onsubmit="event.preventDefault(); jobappEdit({{ jobapp.id }});" class="form-group">
+  <input placeholder="URL" autocomplete="off" id="url{{ jobapp.id }}" class="input-custom w-100 mb-3" value="{{ jobapp.url }}">
+  <input placeholder="Employer Name" autocomplete="off" id="employer{{ jobapp.id }}" class="input-custom w-100 mb-3" value="{{ jobapp.employer }}">
+  <select class="input-custom w-100 mb-3" id="status{{ jobapp.id }}">
+    {% set options = ["Pending", "Updated", "Stale", "Rejected"] %}
+    {% for i in options %}
+    <option value="{{ i }}" {% if i== jobapp.status %}selected{% endif %}>{{ i }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn-custom w-100">edit <i class="bi bi-pen"></i></button>
 </form>
 {% endmacro %}
 
@@ -90,4 +126,12 @@
   <div contenteditable="true" class="input-custom mb-3" style="height: 300px" id="content">WYSIWYG</div>
   <button type="submit" class="btn-custom bg-success w-100">save</button>
 </form>
+{% endmacro %}
+
+{% macro sorter(class='') %}
+<div class="{{ class }}">
+  <span class="font-custom" style="font-size:0.7em">sort by</span>
+  {% if order_by != "date_applied desc" %}<a class="badge-custom" href="{{ url_for('index', order_by='date_applied desc') }}">Date Applied</a>{% endif %}
+  {% if order_by != "status" %}<a class="badge-custom" href="{{ url_for('index', order_by='status') }}">status</a>{% endif %}
+</div>
 {% endmacro %}
