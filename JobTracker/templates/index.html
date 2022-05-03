@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros with context %}
+
+{% block body %}
+<title>JobTracker</title>
+{% if not current_user.is_anonymous %}
+<a class="btn-custom" onclick="toggleDiv('jobappCreate')">+ new jobapp</a>
+<div style="display:none" id="jobappCreate">{{ macros.jobapp_create_form() }}</div>
+<div class="row">
+  {% for i in current_user.jobapps %}
+  <div class="card col-xl-4">
+    <div class="card-body">
+      {{ i.employer }}
+      <a class="text-danger" onclick="toggleDiv('deleteJobapp' + {{ i.id }})"><i class="bi bi-trash2"></i> </a>
+      <a style="display:none" id="deleteJobapp{{ i.id }}" class="font-custom text-danger" onclick="jobappDelete({{ i.id }})">delete?</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center opacity-25">
+  <a data-bs-toggle="modal" data-bs-target="#loginModal" class="font-custom text-decoration-underline">log in</a> or
+  <a data-bs-toggle="modal" data-bs-target="#signupModal" class="font-custom text-decoration-underline">sign up</a>
+</div>
+{% endif %}
+{% endblock %}
