@@ -1,3 +1,12 @@
+$(document).ready(function() {
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('jobtracker_theme'));
+});
+
+function changeTheme(theme) {
+    localStorage.setItem('jobtracker_theme', theme);
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('jobtracker_theme'));
+}
+
 function toggleDiv(divId) {
     $('#' + divId).fadeToggle(150);
 }

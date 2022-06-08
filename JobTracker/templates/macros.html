@@ -35,7 +35,7 @@
 {% endmacro %}
 
 {% macro jobapp_card(jobapp) %}
-<div class="card col-xl-4">
+<div class="card col-xl-4 border-0">
   <div class="card-body mb-4">
     <p>
       <a target="_blank" href="{{ jobapp.url }}" class="h3">{{ jobapp.employer }}</a>
@@ -93,7 +93,7 @@
 <form onsubmit="event.preventDefault(); jobappCreate(); this.reset();" class="input-group">
   <input placeholder="URL" autocomplete="off" id="url" class="input-custom" required>
   <input placeholder="Employer Name" autocomplete="off" id="employer" class="input-custom" required>
-  <button type="submit" class="btn-custom"><i class="bi bi-plus-lg"></i></button>
+  <button type="submit" class="btn-custom"><i class="bi bi-plus-lg"></i> add jobapp</button>
 </form>
 {% endmacro %}
 
@@ -130,7 +130,7 @@
 
 {% macro sorter(class='') %}
 <div class="{{ class }}">
-  <span class="font-custom" style="font-size:0.7em">sort by</span>
+  <span class="font-custom">sort by</span>
   {% if order_by != "date_applied desc" %}<a class="badge-custom" href="{{ url_for('index', order_by='date_applied desc') }}">Date Applied</a>{% endif %}
   {% if order_by != "status" %}<a class="badge-custom" href="{{ url_for('index', order_by='status') }}">status</a>{% endif %}
 </div>
