@@ -36,9 +36,7 @@ class Jobapp(db.Model):
     date_applied = Column(DateTime)
     status = Column(Text)
 
-    def __init__(self, url: str,
-                 employer: str,
-                 status: str = "Pending", **kwargs):
+    def __init__(self, url: str, employer: str, status: str = "Pending", **kwargs):
         self.url = url
         self.employer = employer
         self.date_applied = datetime.datetime.now()

@@ -49,7 +49,11 @@ def signup():
     password_confirm = request.form["password_confirm"]
 
     if password == password_confirm:
-        _ = User(username=username, password=generate_password_hash(password), date_created=datetime.datetime.now())
+        _ = User(
+            username=username,
+            password=generate_password_hash(password),
+            date_created=datetime.datetime.now(),
+        )
         database.add(_)
         login_user(_)
         return redirect(url_for("index"))
@@ -71,7 +75,10 @@ def change_password():
     new_password = request.form["new_password"]
     new_password_confirm = request.form["new_password_confirm"]
 
-    if check_password_hash(current_user.password, old_password) and new_password == new_password_confirm:
+    if (
+        check_password_hash(current_user.password, old_password)
+        and new_password == new_password_confirm
+    ):
         current_user.password = generate_password_hash(new_password)
         database.update()
     else:
@@ -89,7 +96,9 @@ def delete_account():
 
 @current_app.route("/jobapp_create", methods=["POST"])
 def jobapp_create():
-    jobapp_ = Jobapp(request.form["url"], request.form["employer"], user=current_user.id)
+    jobapp_ = Jobapp(
+        request.form["url"], request.form["employer"], user=current_user.id
+    )
     database.add(jobapp_)
     return redirect(request.referrer)
 
