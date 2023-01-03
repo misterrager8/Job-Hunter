@@ -100,8 +100,10 @@ function JobListItem(props) {
 		<div>
 			<div className="row mb-1 p-1">
 				<a className="col text-truncate" target="_blank" href={props.job.url}>{props.job.url}</a><br/>
-				<div className="col text-muted fst-italic">{props.job.date_added}</div>
-				<div className="col text-capitalize">{props.job.status}</div>
+				<div className="col text-muted fst-italic"><span className="small">{props.job.date_added}</span></div>
+				<div className="col">
+					<span className="status-badge" style={{ color:props.job.status_color, borderColor:props.job.status_color }}>{props.job.status}</span>
+				</div>
 				<div className="col">
 					<div className="btn-group btn-group-sm float-end">
 						<a onClick={toggleEdit} className="btn text-secondary"><i className="bi bi-pen"></i></a>
@@ -113,10 +115,10 @@ function JobListItem(props) {
 			{editing && <form onSubmit={(e) => editJob(e)} className="input-group input-group-sm mb-4">
 				<input id={'url' + props.job.id} autoComplete="off" className="form-control" defaultValue={props.job.url} />
 				<select id={'status' + props.job.id} className="form-control" defaultValue={props.job.status}>
-					<option value="pending">pending</option>
-					<option value="stale">stale</option>
-					<option value="followed up">followed up</option>
-					<option value="rejected">rejected</option>
+					<option value="Pending">Pending</option>
+					<option value="Stale">Stale</option>
+					<option value="Followed Up">Followed Up</option>
+					<option value="Rejected">Rejected</option>
 				</select>
 				<button type="submit" className="btn btn-outline-secondary">Edit</button>
 			</form>}

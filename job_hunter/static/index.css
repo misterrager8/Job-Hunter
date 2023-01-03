@@ -19,10 +19,16 @@ a, a:hover, .nav-link, .nav-link:hover {
 	cursor: pointer;
 }
 
-::placeholder, .nav-link, .btn {
+::placeholder, .nav-link, .btn, .status-badge {
 	letter-spacing: 1px;
 }
 
-.form-control {
+.form-control, .status-badge {
 	border: 1px solid;
+}
+
+.status-badge {
+	border-radius: 10px;
+	padding: 3px 15px;
+	font-size: 0.8em;
 }
