@@ -1,0 +1,4 @@
+.env
+JobHunter.egg-info/
+*.pyc
+todos.json
