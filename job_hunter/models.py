@@ -9,6 +9,10 @@ class Job(db.Model):
     date_added = db.Column(db.DateTime)
     status = db.Column(db.Text, default="Pending")
 
+    title = db.Column(db.Text)
+    organization = db.Column(db.Text)
+    notes = db.Column(db.Text)
+
     def __init__(self, **kwargs):
         super(Job, self).__init__(**kwargs)
 
@@ -41,6 +45,9 @@ class Job(db.Model):
         return dict(
             id=self.id,
             url=self.url,
+            title=self.title,
+            organization=self.organization,
+            notes=self.notes,
             date_added=self.date_added.strftime("%-B %-d, %Y @ %-I:%M %p"),
             status=self.status,
             status_color=self.status_color,

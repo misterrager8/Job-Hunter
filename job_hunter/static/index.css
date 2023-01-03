@@ -19,7 +19,7 @@ a, a:hover, .nav-link, .nav-link:hover {
 	cursor: pointer;
 }
 
-::placeholder, .nav-link, .btn, .status-badge {
+::placeholder, .nav-link, .btn, .status-badge, .heading {
 	letter-spacing: 1px;
 }
 

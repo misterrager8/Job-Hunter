@@ -35,6 +35,9 @@ def edit_job():
     job_ = Job.query.get(int(request.form.get("id")))
     job_.url = request.form.get("url")
     job_.status = request.form.get("status")
+    job_.title = request.form.get("title") or ""
+    job_.organization = request.form.get("organization") or ""
+    job_.notes = request.form.get("notes") or ""
 
     job_.edit()
 
